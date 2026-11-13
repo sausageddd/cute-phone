@@ -152,6 +152,17 @@ function scopeSingleSelector(sel: string, scope: string): string {
   if (sel.startsWith(scope + " ") || sel.startsWith(scope + ":") || sel.startsWith(scope + "[") || sel.startsWith(scope + ".") || sel.startsWith(scope + ">")) {
     return sel;
   }
+  // 会话 CSS 的「宿主作用域」是 .chat-app，但聊天室 DOM 的根节点是
+  // .chat-room-wrapper（page-shell 嵌套在它里面）。资源作者按聊天室根节点写
+  // `.chat-room-wrapper { background... }` 时，原逻辑会生成
+  // `.chat-app .chat-room-wrapper .chat-room-wrapper`，选择器失配导致聊天背景失效。
+  // 统一把聊天室根节点映射到会话作用域，保留资源 CSS 的原写法。
+  if (scope === ".chat-app" && sel === ".chat-room-wrapper") {
+    return scope;
+  }
+  if (scope === ".chat-app" && sel.startsWith(".chat-room-wrapper ")) {
+    return scope + " " + sel.slice(".chat-room-wrapper ".length);
+  }
   // Normal selector — prefix with scope
   return scope + " " + sel;
 }
