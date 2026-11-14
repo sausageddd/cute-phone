@@ -6,6 +6,7 @@ import { ChatReasoningVisibilityController } from "@/components/chat-reasoning-v
 import { CSSImportEnhancer } from "@/components/css-import-enhancer";
 import { PWAManifestInjector } from "@/components/pwa-manifest-injector";
 import { PWARegistrar } from "@/components/pwa-registrar";
+import { ViewportInsetSync } from "@/components/viewport-inset-sync";
 import "../styles/fonts.css";
 import "./globals.css";
 
@@ -18,8 +19,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "float",
-  description: "float",
+  title: "Float",
+  description: "Float",
 };
 
 export default function RootLayout({
@@ -35,13 +36,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-192.png" />
         <link rel="icon" href="/icon-192.png" type="image/png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-title" content="float" />
+        <meta name="apple-mobile-web-app-title" content="Float" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body>
         <PWAManifestInjector />
         <PWARegistrar />
+        <ViewportInsetSync />
         <CSSImportEnhancer />
         <ChatPluginBootstrap />
         <ChatReasoningVisibilityController />
